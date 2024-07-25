@@ -1,10 +1,34 @@
 import { apple, bill, google } from "../assets";
 import styles, { layout } from "../style";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Flip } from 'gsap/Flip';
+import { TextPlugin } from 'gsap/TextPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const Billing = () => (
-  <section id="product" className={layout.sectionReverse}>
+gsap.registerPlugin(useGSAP, Flip, ScrollTrigger);
+
+const Billing = () => {
+
+  
+  useGSAP(()=> {
+    gsap.to(".robo", {
+      duration: 4,
+      x: -100,
+      scrollTrigger: {
+        trigger: ".robo",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+      
+    },
+    })
+  })
+
+  return(
+    <section id="product" className={layout.sectionReverse}>
     <div className={layout.sectionImgReverse}>
-      <img src={bill} alt="billing" className="w-[100%] h-[100%] relative z-[5]" />
+      <img src={bill} alt="billing" className="w-[100%] h-[100%] relative z-[5] robo" />
 
       {/* gradient start */}
       <div className="absolute z-[3] -left-1/2 top-0 w-[50%] h-[50%] rounded-full white__gradient" />
@@ -29,6 +53,9 @@ const Billing = () => (
       </div>
     </div>
   </section>
-);
+  )
+
+ 
+}
 
 export default Billing;

@@ -1,9 +1,33 @@
 import { card } from "../assets";
 import styles, { layout } from "../style";
 import Button from "./Button";
+import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
+import { Flip } from 'gsap/Flip';
+import { TextPlugin } from 'gsap/TextPlugin';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-const CardDeal = () => (
-  <section className={layout.section}>
+
+gsap.registerPlugin(useGSAP, Flip, ScrollTrigger);
+
+const CardDeal = () => {
+
+  useGSAP(()=> {
+    gsap.to(".rob", {
+      duration: 4,
+      x: 100,
+      scrollTrigger: {
+        trigger: ".rob",
+        start: "top center",
+        end: "bottom center",
+        scrub: true,
+      
+    },
+    })
+  })
+
+  return (
+    <section className={layout.section}>
     <div className={layout.sectionInfo}>
       <h2 className={styles.heading2}>
         Find a better card deal <br className="sm:block hidden" /> in few easy
@@ -18,9 +42,12 @@ const CardDeal = () => (
     </div>
 
     <div className={layout.sectionImg}>
-      <img src={card} alt="billing" className="w-[100%] h-[100%]" />
+      <img src={card} alt="billing" className="w-[100%] h-[100%] rob" />
     </div>
-  </section>
-);
+    </section>
+  )
+  
+ 
+};
 
 export default CardDeal;
